@@ -15,7 +15,7 @@ public class PruebaDan {
 
     textoTabla = generarTabla(txtprb);
     arbolUbicacion = generarArbol(textoTabla);
-    
+
     ArrayList<Integer> num = new ArrayList<Integer>();
     num = gernerarPosicionesDeRevision(4, 5);
     System.out.println(num.toString());
@@ -28,11 +28,11 @@ public class PruebaDan {
     System.out.println(o.length);
     String[] o2 = generarArrayOracion(oracionn);
     System.out.println(o2.length);
-      System.out.println(o[8]);
-      System.out.println(o2[4]);
+    System.out.println(o[11]);
+    System.out.println(o2[7]);
     System.out.println("lo que retorna"+comparacionOraciones(o, o2, 8, 4, 4));
-      System.out.println("asdf");
-    
+    System.out.println("asdf");
+
 
   }
 
@@ -40,9 +40,9 @@ public class PruebaDan {
 
 
   public static String[] generarArrayOracion(String oracion){
-      oracion = oracion.replace(",", "").replaceAll("\\s[^\\s]{1,3}\\s", " ").replaceAll("\\s[^\\s]{1,3}\\s", " ").replaceAll("^\\s", "");
-      String[] arregloPalabras = oracion.split(" ", -1);
-      return arregloPalabras;
+    oracion = oracion.replace(",", "").replaceAll("\\s[^\\s]{1,3}\\s", " ").replaceAll("\\s[^\\s]{1,3}\\s", " ").replaceAll("^\\s", "");
+    String[] arregloPalabras = oracion.split(" ", -1);
+    return arregloPalabras;
   }
   public static ArrayList<String[]> generarTabla(String texto){
     ArrayList<String[]> list = new ArrayList<String[]>();
@@ -80,10 +80,9 @@ public class PruebaDan {
 
 
   public static int verificacionOracion(String[] oracion, int plagioMinimo, AVLTree tree){
-    
+
     int numOracion = -1;
     ArrayList<Integer> indicesRevision = new ArrayList<Integer>();
-    indicesRevision = gernerarPosicionesDeRevision(oracion.length, plagioMinimo);
 
     for(int i = 0; i < oracion.length; i++){
 
@@ -92,10 +91,6 @@ public class PruebaDan {
 
 
     return numOracion;
-  }
-  public static int gernerarPosicionesDeRevision(){
-
-      return -1;
   }
 
   public static int comparacionOraciones(String[] original, String[] plagio, int posOriginal, int posPlagio, int plagioMinimo){
@@ -134,19 +129,6 @@ public class PruebaDan {
       return -1;
     }
     return  posPlagio;
-  }
-
-  public static ArrayList<Integer>  gernerarPosicionesDeRevision(int cantidadPalabras, int plagioMinimo){
-
-    int indice = 0;
-    ArrayList<Integer> indices = new ArrayList<Integer>();
-
-    indice += plagioMinimo;
-    while(indice <= cantidadPalabras){
-      indices.add(indice);
-      indice += plagioMinimo;
-    }
-    return indices;
   }
 }
 
