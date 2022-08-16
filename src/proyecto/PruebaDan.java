@@ -17,7 +17,6 @@ public class PruebaDan {
     arbolUbicacion = generarArbol(textoTabla);
 
     ArrayList<Integer> num = new ArrayList<Integer>();
-    num = gernerarPosicionesDeRevision(4, 5);
     System.out.println(num.toString());
     System.out.println(arbolUbicacion.inOrden());
     System.out.println("buscado rechoncha"+arbolUbicacion.getNode("rechoncha").ubicacionesPalabras.toString());
@@ -78,7 +77,7 @@ public class PruebaDan {
     return true;
   }
 
-
+/*
   public static int verificacionOracion(ArrayList<String> texto, String[] plagio, int plagioMinimo, AVLTree tree){
 
     ArrayList<Integer> indicesRevision = new ArrayList<Integer>();
@@ -102,7 +101,7 @@ public class PruebaDan {
 
 
     return -1;
-  }
+  }*/
 
   public static int comparacionOraciones(String[] original, String[] plagio, int posOriginal, int posPlagio, int plagioMinimo){
     System.out.println("aqui"+posPlagio+posOriginal);
