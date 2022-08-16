@@ -83,11 +83,11 @@ public class PruebaDan {
 
     int numOracion = -1;
     ArrayList<Integer> indicesRevision = new ArrayList<Integer>();
+    int indice = plagioMinimo;
 
-    for(int i = 0; i < oracion.length; i++){
+    while(indice < oracion.length && i != -1){
 
     }
-
 
 
     return numOracion;
