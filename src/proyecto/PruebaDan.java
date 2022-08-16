@@ -79,18 +79,29 @@ public class PruebaDan {
   }
 
 
-  public static int verificacionOracion(String[] oracion, int plagioMinimo, AVLTree tree){
+  public static int verificacionOracion(ArrayList<String> texto, String[] plagio, int plagioMinimo, AVLTree tree){
 
-    int numOracion = -1;
     ArrayList<Integer> indicesRevision = new ArrayList<Integer>();
-    int indice = plagioMinimo;
+    ArrayList<UbicacionPalabra> ubicacionesDeUnaPalabra = tree.getNodes().UbicacionesPalabras;
 
-    while(indice < oracion.length && i != -1){
-
+    int indiceTexto = ubicacionesDeUnaPalabra.get(0).indice;
+    int numOracion = ubicacionesDeUnaPalabra.get(0).oracion;
+    
+    int indicePlagio = plagioMinimo;
+    int indicePlagio = comparacionOraciones(texto.get(numOracion), plagio, indiceTexto, indicePlagio, plagioMinimo);
+    if(indicePlagio == -1){
+      return numOracion;
+    }
+    if(ubicacionesDeUnaPalabra.length > 1){
+    }
+    if((plagio.length - indicePlagio) > plagioMinimo){
+      while(indice < oracion.length && i != -1 && (oracion.length-indice) > plagioMinimo){
+        int indicePlagio = comparacionOraciones(texto.get(numOracion), plagio, indiceTexto, indicePlagio, plagioMinimo);
+      }
     }
 
 
-    return numOracion;
+    return -1;
   }
 
   public static int comparacionOraciones(String[] original, String[] plagio, int posOriginal, int posPlagio, int plagioMinimo){
