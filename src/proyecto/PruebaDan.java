@@ -21,14 +21,9 @@ public class PruebaDan {
     System.out.println("------------------------------------------");
     arbolUbicacion = generarArbol(textoTabla);
 
-    System.out.println("prueba"+arbolUbicacion.getNode("razon").ubicacionesPalabras.get(0).oracion);
-    System.out.println(arbolUbicacion.getNode("razon"));
     ArrayList<OracionPlagio> oracionesPlagio = new ArrayList<OracionPlagio>();
     oracionesPlagio = encontrarOracionesPlagiadas(textoTabla.size(), arbolUbicacion, t2);
     System.out.println(mostrarOraciones(textoTabla, t2, oracionesPlagio));
-
-    String oracionimpro = "para llamar talle al suyo";
-    String[] impro = generarArrayOracion(oracionimpro);
   }
 
 
