@@ -1,4 +1,3 @@
-
 class AVLTree {
 
     Node root;
@@ -61,13 +60,18 @@ class AVLTree {
 
         return height(N.left) - height(N.right);
     }
+    
+    Node insert(int indice, int oracion, String valor){
+        return insert(this.root, indice, oracion, valor);
+    }
 
     Node insert(Node node, int indice, int oracion, String valor) {
 
         /* 1. Perform the normal BST insertion */
         if (node == null) {
             return (new Node(indice, oracion, valor));
-        } else if (valor.compareTo(node.valor) < 0) {
+        } 
+        if (valor.compareTo(node.valor) < 0) {
             node.left = insert(node.left, indice, oracion, valor);
         } else if (valor.compareTo(node.valor) > 0) {
             node.right = insert(node.right, indice, oracion, valor);
@@ -149,12 +153,11 @@ class AVLTree {
         if (node == null) {
             return null;
         } else if (valor.compareTo(node.valor) < 0) {
-            return node.left = getNode(node.left, valor);
+            return getNode(node.left, valor);
         } else if (valor.compareTo(node.valor) > 0) {
-            return node.right = getNode(node.right, valor);
+            return getNode(node.right, valor);
         } else {
             return node;
         }
     }
 }
-// This code has been contributed by Mayank Jaiswal

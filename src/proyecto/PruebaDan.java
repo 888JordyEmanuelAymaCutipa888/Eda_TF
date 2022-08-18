@@ -1,38 +1,34 @@
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PruebaDan {
-
+                                                                                                                                                                                                                                                                                                                                                                                                        
   /* method to create a simple linked list with 3 nodes */
   public static void main(String[] args) {
 
     int cantidadPalabras = 8;
-    String txtprb = "Doña Anaya Uzeada de Ribera rechoncha Maldonado de Bracamonte y Anaya era baja, rechoncha, abigotada. Ya no existia razon para llamar talle al suyo. Sus colores vivos, sanos, podian mas que el albayalde y el soliman del afeite, con que se blanqueaba por simular melancolias. Gastaba dos parches oscuros, adheridos a las sienes y que fingian medicamentos. Tenia los ojitos ratoniles, maliciosos. Sabia dilatarlos duramente o desmayarlos con recato o levantarlos con disimulo. Caminaba contoneando las imposibles caderas y era dificil, al verla, no asociar su estampa achaparrada con la de ciertos palmipedos domesticos. Sortijas celestes y azules le ahorcaban las falanges";
+    String txtprb = "Conjunto de enunciados con que el creyente se dirige a Dios. Doña Anaya Uzeada de Ribera rechoncha Maldonado de Bracamonte y Anaya era baja, rechoncha, abigotada. Ya no existia razon para llamar talle al suyo. Sus colores vivos, sanos, podian mas que el y el soliman del afeite, con que se blanqueaba por simular melancolias. Gastaba dos parches oscuros, adheridos a las sienes y que fingian medicamentos. Tenia los ojitos ratoniles, maliciosos. Sabia dilatarlos duramente o desmayarlos con recato o levantarlos con disimulo. Caminaba contoneando las imposibles caderas y era dificil, al verla, no asociar su estampa achaparrada con la de ciertos palmipedos domesticos. Sortijas celestes y azules le ahorcaban las falanges";
 
+    String text2 = "Bracamonte y Anaya era baja, rechoncha, abigotada. Ya no existia razon para llamar talle al suyo. Sus colores vivos, sanos, podian mas que el albayalde y el soliman del afeite, con que se blanqueaba por simular melancolias. Gastaba dos parches oscuros, adheridos a las sienes y que fingian medicamentos. Tenia los ojitos ratoniles, maliciosos. Sabia dilatarlos duramente o desmayarlos con recato o levantarlos con disimulo. Caminaba contoneando las imposibles caderas y era dificil, al verla, no asociar su estampa achaparrada con la de ciertos palmipedos domesticos. Sortijas celestes y azules le ahorcaban las falanges.Conjunto de enunciados con que el dirige creyente se  a Dios.";
     AVLTree arbolUbicacion = new AVLTree();
     ArrayList<String[]> textoTabla = new ArrayList<String[]>();
+    ArrayList<String[]> t2 = new ArrayList<String[]>();
 
+    System.out.println("T1----------------------------------------");
     textoTabla = generarTabla(txtprb);
+    System.out.println("T2----------------------------------------");
+    t2 = generarTabla(text2);
+    System.out.println("------------------------------------------");
     arbolUbicacion = generarArbol(textoTabla);
 
-    ArrayList<Integer> num = new ArrayList<Integer>();
-    System.out.println(num.toString());
-    System.out.println(arbolUbicacion.inOrden());
-    System.out.println("buscado rechoncha"+arbolUbicacion.getNode("rechoncha").ubicacionesPalabras.toString());
+    System.out.println("prueba"+arbolUbicacion.getNode("razon").ubicacionesPalabras.get(0).oracion);
+    System.out.println(arbolUbicacion.getNode("razon"));
+    ArrayList<OracionPlagio> oracionesPlagio = new ArrayList<OracionPlagio>();
+    oracionesPlagio = encontrarOracionesPlagiadas(textoTabla.size(), arbolUbicacion, t2);
+    System.out.println(mostrarOraciones(textoTabla, t2, oracionesPlagio));
 
-    String oracion = "Conjunto de enunciados con que el creyente se dirige a Dios, a una divinidad, a un santo, etc, especialmente la que tiene una forma fija y establecida";
-    String oracionn = "Acción de orar mental o vocalmente tiene una forma fija y establecida";
-    String[] o = generarArrayOracion(oracion);
-    System.out.println(o.length);
-    String[] o2 = generarArrayOracion(oracionn);
-    System.out.println(o2.length);
-    System.out.println(o[11]);
-    System.out.println(o2[7]);
-    System.out.println("lo que retorna"+comparacionOraciones(o, o2, 8, 4, 4));
-    System.out.println("asdf");
-
-
+    String oracionimpro = "para llamar talle al suyo";
+    String[] impro = generarArrayOracion(oracionimpro);
   }
 
 
@@ -55,6 +51,14 @@ public class PruebaDan {
       System.out.println(Arrays.toString(temp.split(" ", -1)));
       list.add(temp.split(" ", -1));
     }
+      System.out.println("IMPRESION TABLA-----------------------------");
+      for (int i = 0; i < list.size(); i++) {
+          for (int j = 0; j < list.get(i).length; j++) {
+              System.out.print(" "+ list.get(i)[j]);
+          }
+          System.out.println("");
+      }
+      System.out.println("IMPRESION TABLA-----------------------------");
     return list;
   }
 
@@ -65,7 +69,8 @@ public class PruebaDan {
     for(int i=0;i<text.size();i++){
       System.out.println("-"+i);
       for(int j=0;j<text.get(i).length;j++){
-        tree.root = tree.insert(tree.root, j,i, text.get(i)[j]);
+          System.out.println("generaRBol"+text.get(i)[j]);
+          tree.root = tree.insert(j,i, text.get(i)[j]);
       }
     }
     return tree;
@@ -140,8 +145,112 @@ public class PruebaDan {
     }
     return  posPlagio;
   }
-}
+  public static ArrayList<OracionPlagio> encontrarOracionesPlagiadas(int original, AVLTree tree, ArrayList <String[]> plagios){
+    ArrayList<OracionPlagio> oracionesPlagio = new ArrayList<OracionPlagio>();
+    
+    System.out.println("cantidad de arreglos de la tabla plagios" + plagios.size() + "");
+    
+    for (int i = 0; i < plagios.size(); i++) {
 
+      System.out.println("----------------------------------------------------------------");
+      int maxPlagiosPorOracion = 0;
+      int oracionOriginal=-1;
+      int oracionPlagio = i;
+      
+      int[] palabrasPlagiadasXoracion = new int[original];
+      
+      for(int z = 0; z < palabrasPlagiadasXoracion.length; z++){
+        palabrasPlagiadasXoracion[z] = 0;
+      }
+     
+      //a nivel de oracion
+      for(int j = 0; j < plagios.get(i).length; j++){
+        System.out.println("---value"+j);
+        String palabraPlagio = plagios.get(i)[j];
+        Node palabra = tree.getNode(palabraPlagio);
+        System.out.println(tree.getNode(palabraPlagio));
+        if(palabra != null){
+          ArrayList<UbicacionPalabra> ubicacionesPalabra = new ArrayList<UbicacionPalabra>();
+          ubicacionesPalabra = palabra.ubicacionesPalabras;
+          
+          //A nivel de palabras
+          for(int k = 0; k < ubicacionesPalabra.size(); k++){
+            System.out.println("Palabra: "+palabra.valor+" ---Oracion de ubicacion: "+ubicacionesPalabra.get(k).oracion+" ");
+            palabrasPlagiadasXoracion[ubicacionesPalabra.get(k).oracion] += 1;
+          }
+        }else if(tree.getNode(palabraPlagio) == null){
+            System.out.println("Notificando vacía,  La palabra es: "+palabraPlagio);
+          }
+        
+      }
+
+      System.out.println("Oraciones: ");
+      for(int m = 0; m < palabrasPlagiadasXoracion.length; m++){
+        System.out.println("pos: "+ m+" imprimiendo cantidadPalabras: "+ palabrasPlagiadasXoracion[m]);
+        if(maxPlagiosPorOracion < palabrasPlagiadasXoracion[m]){
+          System.out.println("entra if");
+          maxPlagiosPorOracion = palabrasPlagiadasXoracion[m];
+          oracionOriginal = m;
+        }
+      }
+      System.out.println("max Plagios por oracion: "+maxPlagiosPorOracion);
+      if(maxPlagiosPorOracion >= 3){
+        System.out.println("guarda: "+oracionOriginal+" p: "+oracionPlagio+" max: "+maxPlagiosPorOracion);
+        oracionesPlagio.add(new OracionPlagio(oracionOriginal, oracionPlagio, maxPlagiosPorOracion));
+      }
+    }
+    System.out.println("funcionEncontrar Plagios");
+    return oracionesPlagio;
+  }
+
+  public static String mostrarOraciones(ArrayList<String[]> original, ArrayList<String[]> plagio, ArrayList<OracionPlagio> plagios){
+
+    System.out.println("funcion mostrar");
+    String mostrar = "";
+    for (int i = 0; i < plagios.size(); i++) {
+      System.out.println("-------------------");
+      mostrar += plagios.get(i).toString();
+      System.out.println(plagios.get(i).oracionEnPlagio+"");
+      mostrar += "\nORACION EN PLAGIO: "+ mostrarArreglo(plagio.get(plagios.get(i).oracionEnPlagio)) +"\n" + 
+        "ORACIÓN EN  TEXTO: " + mostrarArreglo(original.get(plagios.get(i).oracionEnTexto))+"\n\n";
+    }
+    System.out.println("funcion mostrar");
+    return mostrar;
+  }
+
+  public static String mostrarArreglo(String[] oracionArreglo){
+    String oracionString = "";
+    for(int i = 0; i < oracionArreglo.length; i++){
+      oracionString = oracionString + " " + oracionArreglo[i];
+    }
+    return oracionString;
+  }
+
+  public static int[] retornarOracionesAnalizadas(int cantidadOraciones, AVLTree tree, String[] oracion){
+    System.out.println("metodo----");
+    int[] palabrasPlagiadasXoracion = new int[cantidadOraciones];
+    for(int j = 0; j < oracion.length; j++){
+      System.out.println("---value"+j);
+      String palabraPlagio = oracion[j];
+      Node palabra = tree.getNode(palabraPlagio);
+      System.out.println(tree.getNode(palabraPlagio));
+      if(palabra != null){
+        ArrayList<UbicacionPalabra> ubicacionesPalabra = new ArrayList<UbicacionPalabra>();
+        ubicacionesPalabra = palabra.ubicacionesPalabras;
+
+        //A nivel de palabras
+        for(int k = 0; k < ubicacionesPalabra.size(); k++){
+          System.out.println("Palabra: "+palabra.valor+" ---Oracion de ubicacion: "+ubicacionesPalabra.get(k).oracion+" ");
+          palabrasPlagiadasXoracion[ubicacionesPalabra.get(k).oracion] += 1;
+        }
+      }else if(tree.getNode(palabraPlagio) == null){
+        System.out.println("Notificando vacía,  La palabra es: "+palabraPlagio);
+      }
+
+    }
+    return palabrasPlagiadasXoracion;
+  }
+}
 
 
 
