@@ -158,7 +158,12 @@ public class BuscadorDePlagio extends JFrame {
         } else {
           for (int i = 0; i < result.length; i++) {
             String tituloF = "Texto "+(i+1);
-            String valor = ""+result[i];
+            String valor = "";
+            if (result[i]){
+              valor = "SÍ";
+            }else{
+              valor = "NO";
+            }
             modeloResult.setValueAt(tituloF, 0, i);
             modeloResult.setValueAt(valor, 1, i);
           }
